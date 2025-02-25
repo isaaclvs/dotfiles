@@ -17,10 +17,13 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+alias work="~/.scripts/start-work.sh"
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
 alias c="clear"
 alias q="exit"
+alias lg="lazygit"
+alias yz="yazi"
 
 alias v="nvim"
 alias t="tmux"
@@ -36,6 +39,7 @@ alias remove="sudo pacman -Rns"
 # Ruby
 alias rs="rails server"
 alias rc="rails console"
+alias b="bundle"
 alias be="bundle exec"
 alias ber="bundle exec rake"
 alias bes="bundle exec rspec"
