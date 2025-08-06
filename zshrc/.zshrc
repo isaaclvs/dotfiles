@@ -23,6 +23,7 @@ alias deploy-prd="~/.scripts/deploy-producao.sh"
 alias deploy-hml="~/.scripts/deploy-homologacao.sh"
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
+alias edit-hypr="nvim ~/.config/hypr/"
 alias c="clear"
 alias q="exit"
 alias lg="lazygit"
@@ -35,16 +36,16 @@ alias tn="tmux new-session -s"
 alias grep="grep --color=auto"
 
 # Gerenciamento de Pacotes (Arch Linux)
-# alias update="sudo pacman -Syyuu"
-# alias install="sudo pacman -S"
-# alias remove="sudo pacman -Rns"
+alias update="sudo pacman -Syyuu"
+alias install="sudo pacman -S"
+alias remove="sudo pacman -Rns"
 
-# Gerenciamento de Pacotes (Ubuntu)
-alias update="sudo apt update && sudo apt upgrade -y"
-alias install="sudo apt install"
-alias remove="sudo apt remove --purge"
-alias autoremove="sudo apt autoremove --purge -y && sudo apt autoclean"
-alias fullupdate="sudo apt update && sudo apt full-upgrade -y"
+# # Gerenciamento de Pacotes (Ubuntu)
+# alias update="sudo apt update && sudo apt upgrade -y"
+# alias install="sudo apt install"
+# alias remove="sudo apt remove --purge"
+# alias autoremove="sudo apt autoremove --purge -y && sudo apt autoclean"
+# alias fullupdate="sudo apt update && sudo apt full-upgrade -y"
 
 # Ruby
 alias rs="rails server"
@@ -93,7 +94,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 # Setup Project Function
 pj() {
-  local base_path="/home/isaac-alves/workspace/projects"
+  local base_path="/home/isaac/workspace/projects"
   if [ -z "$1" ]; then
     local selected
     selected=$(find "$base_path" -maxdepth 1 -mindepth 1 -type d | fzf --prompt="Select the project: " --height=40%)

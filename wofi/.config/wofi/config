@@ -1,0 +1,26 @@
+# Wofi Configuration - Everforest Theme
+# Compatível com Hyprland setup
+
+# Layout e comportamento
+width=550
+height=350
+location=center
+show=drun
+prompt=Search Applications
+filter_rate=100
+allow_markup=true
+no_actions=true
+halign=fill
+orientation=vertical
+content_halign=fill
+insensitive=true
+
+# Performance
+image_size=32
+columns=1
+matching=contains
+sort_order=alphabetical
+
+# Aparência
+gtk_dark=true
+layer=overlay

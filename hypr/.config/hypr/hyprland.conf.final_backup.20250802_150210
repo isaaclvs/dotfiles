@@ -1,0 +1,408 @@
+################
+### MONITORS ###
+################
+# Notebook BOE à esquerda (sem workspaces principais)
+monitor = eDP-1, 1366x768@60, 0x0, 1
+
+# Monitor LG 24" à direita (principal com todos workspaces)  
+monitor = HDMI-A-1, 1920x1080@60, 1366x0, 1
+
+# Desabilitar outros monitores
+monitor = , disabled
+
+###################
+### MY PROGRAMS ###
+###################
+# Definição de programas padrão - facilita mudanças futuras
+# Use $variavel para referenciar em outros lugares
+
+$terminal = kitty                    # Terminal padrão
+$fileManager = thunar              # Gerenciador de arquivos
+$menu = wofi --show drun             # Launcher de aplicações (menu de apps)
+
+#################
+### AUTOSTART ###
+#################
+# Programas que iniciam automaticamente junto com o Hyprland
+# exec-once = executa apenas uma vez por sessão
+# exec = executa toda vez que o config é recarregado
+
+exec-once = dunst &   # Sistema de notificações
+exec-once = waybar & swww-daemon & brave  # Barra de status, wallpaper e browser
+exec-once = sleep 3 && swww img ~/Pictures/Wallpapers/forest.png --transition-type fade
+exec-once = sleep 2 && wl-paste --watch cliphist store &
+exec-once = hypridle
+
+#############################
+### ENVIRONMENT VARIABLES ###
+#############################
+# Variáveis de ambiente específicas para Wayland/Hyprland
+
+env = XCURSOR_SIZE,24      # Tamanho do cursor do mouse
+env = HYPRCURSOR_SIZE,24   # Tamanho do cursor específico do Hyprland
+
+#####################
+### LOOK AND FEEL ###
+#####################
+# Configurações visuais - aparência do desktop
+
+# ========== LAYOUT GERAL ==========
+general {
+    gaps_in = 3          # Espaço entre janelas (pixels)
+    gaps_out = 7         # Espaço das janelas até as bordas da tela
+    border_size = 2      # Espessura da borda das janelas
+
+    # Cores das bordas (formato RGBA com transparência)
+    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg  # Gradiente azul-verde para janela ativa
+    col.inactive_border = rgba(595959aa)                     # Cinza para janelas inativas
+
+    resize_on_border = true  # Permite redimensionar clicando na borda
+    allow_tearing = false    # Desabilita screen tearing (melhor qualidade visual)
+    layout = dwindle         # Sistema de layout (dwindle = divisão automática)
+}
+
+# ========== DECORAÇÕES VISUAIS ==========
+decoration {
+    rounding = 7          # Arredondamento dos cantos das janelas
+    rounding_power = 2    # Intensidade do arredondamento
+
+    # Transparência das janelas
+    active_opacity = 1.0    # Janela ativa: totalmente opaca
+    inactive_opacity = 1.0  # Janela inativa: totalmente opaca
+
+    # ===== SOMBRAS =====
+    shadow {
+        enabled = true              # Ativa sombras nas janelas
+        range = 4                   # Tamanho da sombra
+        render_power = 3            # Intensidade da sombra
+        color = rgba(1a1a1aee)      # Cor da sombra (preto translúcido)
+    }
+
+    # ===== EFEITO BLUR =====
+    blur {
+        enabled = true      # Ativa blur no fundo das janelas
+        size = 3           # Intensidade do blur
+        passes = 1         # Número de passadas (mais = melhor qualidade, pior performance)
+        vibrancy = 0.1696  # Vibrância das cores com blur
+    }
+}
+
+# ==========================================
+# WALLPAPER CONFIGURATION
+# ==========================================
+exec-once = sleep 3 && swww img ~/Pictures/Wallpapers/forest.png --transition-type fade
+
+# ========== ANIMAÇÕES ==========
+animations {
+    enabled = yes, please :)  # Ativa animações (com estilo!)
+
+    # Definição de curvas de animação (Bezier curves)
+    bezier = easeOutQuint,0.23,1,0.32,1        # Saída suave
+    bezier = easeInOutCubic,0.65,0.05,0.36,1   # Entrada e saída suaves
+    bezier = linear,0,0,1,1                    # Linear
+    bezier = almostLinear,0.5,0.5,0.75,1.0     # Quase linear
+    bezier = quick,0.15,0,0.1,1                # Rápida
+
+    # Configuração específica de cada tipo de animação
+    # Formato: animation = tipo, ativado, duração, curva, extras
+    animation = global, 1, 10, default                    # Animação global padrão
+    animation = border, 1, 5.39, easeOutQuint            # Bordas das janelas
+    animation = windows, 1, 4.79, easeOutQuint           # Movimento de janelas
+    animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%   # Janelas aparecendo
+    animation = windowsOut, 1, 1.49, linear, popin 87%      # Janelas desaparecendo
+    animation = fadeIn, 1, 1.73, almostLinear            # Fade in
+    animation = fadeOut, 1, 1.46, almostLinear           # Fade out
+    animation = fade, 1, 3.03, quick                     # Fade geral
+    animation = layers, 1, 3.81, easeOutQuint            # Camadas (popups, menus)
+    animation = layersIn, 1, 4, easeOutQuint, fade       # Camadas aparecendo
+    animation = layersOut, 1, 1.5, linear, fade          # Camadas sumindo
+    animation = fadeLayersIn, 1, 1.79, almostLinear      # Fade in de camadas
+    animation = fadeLayersOut, 1, 1.39, almostLinear     # Fade out de camadas
+    animation = workspaces, 1, 1.94, almostLinear, fade  # Troca de workspaces
+    animation = workspacesIn, 1, 1.21, almostLinear, fade    # Workspace aparecendo
+    animation = workspacesOut, 1, 1.94, almostLinear, fade   # Workspace sumindo
+}
+
+# ========== LAYOUT DWINDLE ==========
+# Sistema de organização automática das janelas
+dwindle {
+    pseudotile = true       # Permite "pseudo-tiling" para apps que não se adaptam bem
+    preserve_split = true   # Mantém a direção da divisão ao mover janelas
+}
+
+# ========== LAYOUT MASTER ==========
+# Layout alternativo estilo "master-stack"
+master {
+    new_status = master     # Novas janelas se tornam master por padrão
+}
+
+# ========== CONFIGURAÇÕES DIVERSAS ==========
+misc {
+    force_default_wallpaper = -1  # -1=aleatório, 0=desabilitado, 1=forçar anime
+    disable_hyprland_logo = false # Mantém o logo/mascote do Hyprland
+}
+
+#############
+### INPUT ###
+#############
+# Configurações de entrada - teclado, mouse, touchpad
+
+input {
+    # ===== TECLADO =====
+    kb_layout = us,br                           # Layouts: inglês e português
+    kb_variant = ,abnt2                         # Variante: ABNT2 para PT-BR
+    kb_model =                                  # Modelo específico (vazio = padrão)
+    kb_options = caps:escape_shifted_capslock,grp:alt_space_toggle  # Caps=Esc, Shift+Caps=CapsLock real, Alt+Space=trocar layout
+    kb_rules =                                  # Regras extras (vazio)
+
+    # Velocidade de repetição das teclas
+    repeat_rate = 40        # Repetições por segundo quando tecla pressionada
+    repeat_delay = 600      # Delay antes de começar a repetir (ms)
+
+    # ===== MOUSE =====
+    follow_mouse = 1        # Foco segue o mouse (1=sim, 0=não, 2=sempre)
+    sensitivity = 0.35      # Sensibilidade do mouse/trackpad
+
+    # ===== TOUCHPAD =====
+    touchpad {
+        # natural_scroll = true              # Scroll "natural" (invertido)
+        clickfinger_behavior = true          # Clique com 2 dedos = botão direito
+        scroll_factor = 0.4                  # Velocidade do scroll
+    }
+}
+
+# ========== GESTOS ==========
+gestures {
+    workspace_swipe = false  # Desabilita trocar workspace com swipe de 3 dedos
+}
+
+# ========== CONFIGURAÇÃO POR DISPOSITIVO ==========
+# Configurações específicas para dispositivos individuais
+device {
+    name = epic-mouse-v1    # Nome do dispositivo
+    sensitivity = -0.5      # Sensibilidade específica para este mouse
+}
+
+###################
+### KEYBINDINGS ###
+###################
+# Atalhos de teclado - Super = tecla Windows
+$mainMod = SUPER  # Define a tecla modificadora principal
+
+# ===== VARIÁVEIS DE APLICAÇÕES =====
+$browser = brave                     # Browser padrão
+$webapp = $browser --app             # Função para web apps (abre como app dedicado)
+
+# ===== APLICAÇÕES =====
+# Controle de janelas
+bind = $mainMod, Q, killactive,                                       # Super+Q: Fechar janela ativa
+
+# Aplicações básicas
+bind = $mainMod, return, exec, $terminal                              # Super+Enter: Terminal
+bind = $mainMod, B, exec, $browser                                    # Super+B: Browser
+
+# Web Applications (abrem como apps dedicados)
+bind = $mainMod, M, exec, $webapp="https://music.youtube.com/"        # Super+M: YouTube Music
+bind = $mainMod SHIFT, M, exec, $webapp="https://youtube.com/"        # Super+Shift+M: YouTube
+bind = $mainMod, W, exec, $webapp="https://web.whatsapp.com/"         # Super+W: WhatsApp Web
+bind = $mainMod, C, exec, $webapp="https://chatgpt.com"               # Super+C: ChatGPT
+bind = $mainMod SHIFT, C, exec, $webapp="https://claude.ai/new"       # Super+Shift+C: Claude AI
+bind = SUPER, A, exec, $webapp=https://calendar.google.com
+
+# Terminal com aplicações específicas
+bind = $mainMod, N, exec, $terminal -e tmux new-session -A -s WIP -n Editor nvim                           # Super+N: Neovim no terminal
+bind = $mainMod, T, exec, $terminal -e btop                           # Super+T: btop (monitor de sistema)
+
+# Aplicações Flatpak
+bind = $mainMod, slash, exec, flatpak run com.bitwarden.desktop                # Super+/: Bitwarden
+bind = $mainMod, O, exec, flatpak run md.obsidian.Obsidian --disable-gpu       # Super+O: Obsidian
+
+# Flatpaks adicionais (descomente se quiser usar)
+# bind = $mainMod, D, exec, flatpak run com.discordapp.Discord                 # Super+D: Discord
+# bind = $mainMod, F, exec, flatpak run com.github.johnfactotum.Foliate        # Super+F: Foliate (ebook reader)
+# bind = $mainMod, K, exec, flatpak run org.kde.okular                         # Super+K: Okular (PDF viewer)
+# bind = $mainMod SHIFT, T, exec, flatpak run org.telegram.desktop             # Super+Shift+T: Telegram
+
+# ===== SISTEMA =====
+bind = $mainMod SHIFT, Q, exit,                  # Super+M: Sair do Hyprland
+bind = $mainMod, E, exec, $fileManager     # Super+E: Abrir gerenciador de arquivos
+bind = $mainMod, Space, exec, $menu        # Super+Space: Abrir launcher de apps
+bind = SUPER SHIFT, T, exec, hyprlock
+
+bind = $mainMod, X, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy  # Super+X: Clipboard manager
+
+# ===== SCREENSHOTS =====
+# Print Screen → Screenshot do monitor em foco (INTELIGENTE!)
+bind = , Print, exec, ~/.config/hypr/scripts/screenshot.sh focused
+
+# Shift + Print Screen → Selecionar área (qualquer monitor)
+bind = SHIFT, Print, exec, ~/.config/hypr/scripts/screenshot.sh area
+
+# Ctrl + Print Screen → Área para clipboard
+bind = CTRL, Print, exec, ~/.config/hypr/scripts/screenshot.sh clipboard
+
+# Alt + Print Screen → Screenshot da janela ativa
+bind = ALT, Print, exec, ~/.config/hypr/scripts/screenshot.sh window
+
+# Super + Print Screen → Monitor em foco para clipboard
+bind = $mainMod, Print, exec, ~/.config/hypr/scripts/screenshot.sh clipboard-focused
+
+# ===== CASOS ESPECIAIS =====
+# Super + Shift + Print → Todos os monitores (raramente usado)
+bind = $mainMod SHIFT, Print, exec, ~/.config/hypr/scripts/screenshot.sh all
+
+# ===== MANIPULAÇÃO DE JANELAS =====
+bind = $mainMod, F, fullscreen, 1          # Super+F: Fullscreen (fake - mantém waybar)
+bind = $mainMod SHIFT, F, fullscreen, 0    # Super+Shift+F: Fullscreen real (esconde tudo)
+bind = $mainMod, V, togglefloating,        # Super+V: Alternar janela flutuante
+bind = $mainMod, P, pseudo,                # Super+P: Modo pseudo-tile
+bind = $mainMod, G, togglesplit,           # Super+G: Alternar direção da divisão
+
+# ===== NAVEGAÇÃO ENTRE APPS =====
+bind = ALT, Tab, cyclenext                   # Alt+Tab: Navegar entre janelas
+bind = ALT, Tab, bringactivetotop            # Trazer para frente
+
+# ===== NAVEGAÇÃO =====
+
+# Mover foco entre janelas com setas e hjkl
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r  
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+binde = $mainMod, H, movefocus, l       # Vim: esquerda
+binde = $mainMod, L, movefocus, r       # Vim: direita  
+binde = $mainMod, K, movefocus, u       # Vim: cima
+binde = $mainMod, J, movefocus, d       # Vim: baixo
+
+# ===== MOVIMENTAÇÃO DE JANELAS =====
+
+# Mover janelas (setas + vim)
+binde = $mainMod SHIFT, left, movewindow, l
+binde = $mainMod SHIFT, right, movewindow, r
+binde = $mainMod SHIFT, up, movewindow, u  
+binde = $mainMod SHIFT, down, movewindow, d
+binde = $mainMod SHIFT, H, movewindow, l    # Vim: mover esquerda
+binde = $mainMod SHIFT, L, movewindow, r    # Vim: mover direita
+binde = $mainMod SHIFT, K, movewindow, u    # Vim: mover cima
+binde = $mainMod SHIFT, J, movewindow, d    # Vim: mover baixo
+
+# ===== REDIMENSIONAMENTO =====
+
+# Redimensionar (apenas vim)
+binde = $mainMod CTRL, H, resizeactive, -15 0    # Vim: diminuir largura
+binde = $mainMod CTRL, L, resizeactive, 15 0     # Vim: aumentar largura
+binde = $mainMod CTRL, K, resizeactive, 0 -15    # Vim: diminuir altura  
+binde = $mainMod CTRL, J, resizeactive, 0 15     # Vim: aumentar altura
+
+# ===== WORKSPACES =====
+
+# Trocar para workspace específico (usando keycodes para melhor compatibilidade)
+bind = $mainMod, code:10, workspace, 1     # Super+1: Ir para workspace 1
+bind = $mainMod, code:11, workspace, 2     # Super+2: Ir para workspace 2
+bind = $mainMod, code:12, workspace, 3     # Super+3: Ir para workspace 3
+bind = $mainMod, code:13, workspace, 4     # Super+4: Ir para workspace 4
+bind = $mainMod, code:14, workspace, 5     # Super+5: Ir para workspace 5
+
+# Mover janela para workspace específico (usando keycodes)
+bind = $mainMod SHIFT, code:10, movetoworkspace, 1  # Super+Shift+1: Mover janela para workspace 1
+bind = $mainMod SHIFT, code:11, movetoworkspace, 2  # Super+Shift+2: Mover janela para workspace 2
+bind = $mainMod SHIFT, code:12, movetoworkspace, 3  # Super+Shift+3: Mover janela para workspace 3
+bind = $mainMod SHIFT, code:13, movetoworkspace, 4  # Super+Shift+4: Mover janela para workspace 4
+bind = $mainMod SHIFT, code:14, movetoworkspace, 5  # Super+Shift+5: Mover janela para workspace 5
+
+# ===== WORKSPACE ESPECIAL (SCRATCHPAD) =====
+bind = $mainMod, S, togglespecialworkspace, magic          # Super+S: Mostrar/esconder scratchpad
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic   # Super+Shift+S: Mover para scratchpad
+
+# ===== NAVEGAÇÃO COM MOUSE =====
+bind = $mainMod, mouse_down, workspace, e+1    # Super+Scroll: Próximo workspace
+bind = $mainMod, mouse_up, workspace, e-1      # Super+Scroll: Workspace anterior
+
+# ===== MANIPULAÇÃO COM MOUSE =====
+bindm = $mainMod, mouse:272, movewindow      # Super+Clique esquerdo: Mover janela
+bindm = $mainMod, mouse:273, resizewindow    # Super+Clique direito: Redimensionar
+
+# ===== TECLAS MULTIMÍDIA =====
+# Controles de volume
+bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+# Controles de brilho
+bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
+bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+
+# Controles de música (requer playerctl)
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+##############################
+### WINDOWS AND WORKSPACES ###
+##############################
+# Regras específicas para janelas e workspaces
+
+# ===== CONFIGURAÇÃO DE WORKSPACES POR MONITOR =====
+# Forçar todos os workspaces no monitor principal (LG 24")
+workspace = 1, monitor:HDMI-A-1, default:true
+workspace = 2, monitor:HDMI-A-1  
+workspace = 3, monitor:HDMI-A-1
+workspace = 4, monitor:HDMI-A-1
+workspace = 5, monitor:HDMI-A-1
+
+# ===== EVITAR WORKSPACES NO NOTEBOOK =====
+# Monitor notebook fica vazio por padrão
+workspace = special:overflow, monitor:eDP-1
+
+# ===== FORÇAR APLICAÇÕES NO MONITOR PRINCIPAL =====
+windowrulev2 = monitor HDMI-A-1, class:^(brave-browser)$
+windowrulev2 = monitor HDMI-A-1, class:^(kitty)$
+windowrulev2 = monitor HDMI-A-1, class:^(nautilus)$
+windowrulev2 = monitor HDMI-A-1, class:^(wofi)$
+windowrulev2 = monitor HDMI-A-1, class:^(pavucontrol)$
+
+# ===== REGRAS DE JANELA =====
+# Formato: windowrulev2 = regra, critério
+
+# ===== WEB APPS - FORÇAR TILING =====
+# Garante que web apps ocupem a tela inteira em workspaces vazios
+windowrulev2 = tile, class:^(brave-browser)$, title:.*WhatsApp.*
+windowrulev2 = tile, class:^(brave-browser)$, title:.*YouTube Music.*
+windowrulev2 = tile, class:^(brave-browser)$, title:.*ChatGPT.*
+windowrulev2 = tile, class:^(brave-browser)$, title:.*Claude.*
+
+# Regra geral: qualquer brave app (exceto browser normal) deve ser tiled
+windowrulev2 = tile, class:^(brave-browser)$, title:^((?!.*Brave Browser).)*$
+
+# ===== OUTRAS REGRAS =====
+# Ignora pedidos de maximização - EXCETO para web apps
+windowrulev2 = suppressevent maximize, class:^(?!brave-browser).*$
+
+# Fix para problemas de foco com XWayland
+windowrulev2 = nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0
+
+# ===== WINDOW RULES PARA WOFI =====
+# Regras para melhor comportamento do wofi
+windowrulev2 = float, class:(wofi)
+windowrulev2 = center, class:(wofi)
+windowrulev2 = stayfocused, class:(wofi)
+windowrulev2 = noborder, class:(wofi)
+
+# ===== EXEMPLOS DE REGRAS ÚTEIS (COMENTADAS) =====
+# windowrulev2 = float, class:^(pavucontrol)$              # Volume control sempre flutuante
+# windowrulev2 = float, class:^(blueman-manager)$          # Bluetooth manager flutuante
+# windowrulev2 = workspace 2, class:^(brave-browser)$      # Brave sempre no workspace 2
+# windowrulev2 = float, class:^(kitty)$, title:^(kitty)$   # Kitty sempre flutuante
+
+# ===== WORKSPACES INTELIGENTES (COMENTADO) =====
+# Remove gaps quando há apenas uma janela - descomente se quiser usar
+# workspace = w[tv1], gapsout:0, gapsin:0
+# workspace = f[1], gapsout:0, gapsin:0
+# windowrulev2 = bordersize 0, floating:0, onworkspace:w[tv1]
+# windowrulev2 = rounding 0, floating:0, onworkspace:w[tv1]
+
+# Controle inteligente da tampa do notebook
+bindl=,switch:on:Lid Switch, exec, ~/.config/hypr/scripts/handle_lid_switch.sh
+bindl=,switch:off:Lid Switch, exec, hyprctl keyword monitor "eDP-1, enable"

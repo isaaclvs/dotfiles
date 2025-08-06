@@ -1,0 +1,109 @@
+/* 
+ * Wofi CSS - Tema Everforest
+ * Compatível com Waybar e Hyprland setup
+ * Paleta: Background #2d353b, Foreground #d3c6aa, Selected #dbbc7f
+ */
+
+/* Container principal */
+window {
+    margin: 0px;
+    border: 2px solid #d3c6aa;
+    border-radius: 12px;
+    background-color: rgba(45, 53, 59, 0.95);
+    font-family: "CaskaydiaMono Nerd Font Propo";
+    font-size: 12px;
+    backdrop-filter: blur(10px);
+}
+
+/* Lista de resultados */
+#outer-box {
+    margin: 8px;
+    border: none;
+    background-color: transparent;
+}
+
+#input {
+    margin: 8px 16px 16px 16px;
+    border: 2px solid #d3c6aa;
+    border-radius: 8px;
+    color: #d3c6aa;
+    background-color: rgba(45, 53, 59, 0.8);
+    font-size: 14px;
+    padding: 8px 12px;
+}
+
+#input:focus {
+    border-color: #dbbc7f;
+    outline: none;
+}
+
+#scroll {
+    margin: 0px 8px;
+    border: none;
+    background-color: transparent;
+}
+
+#inner-box {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Itens da lista */
+#entry {
+    margin: 2px 8px;
+    border: none;
+    border-radius: 8px;
+    color: #d3c6aa;
+    background-color: transparent;
+    padding: 8px 12px;
+    min-height: 32px;
+}
+
+#entry:selected {
+    background-color: rgba(219, 188, 127, 0.15);
+    color: #dbbc7f;
+    border: 1px solid rgba(219, 188, 127, 0.3);
+}
+
+#entry:hover {
+    background-color: rgba(211, 198, 170, 0.1);
+}
+
+/* Ícones dos aplicativos */
+#entry image {
+    margin-right: 8px;
+}
+
+/* Texto dos aplicativos */
+#entry label {
+    color: inherit;
+}
+
+/* Texto selecionado */
+#entry:selected label {
+    color: #dbbc7f;
+    font-weight: bold;
+}
+
+/* Scrollbar personalizada */
+scrollbar {
+    width: 6px;
+    border: none;
+    background-color: transparent;
+}
+
+scrollbar slider {
+    background-color: rgba(211, 198, 170, 0.3);
+    border-radius: 3px;
+    border: none;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(211, 198, 170, 0.5);
+}
+
+/* Placeholder para campo de busca */
+#input:placeholder-shown {
+    color: rgba(211, 198, 170, 0.6);
+}
