@@ -1,3 +1,13 @@
+# Window settings
+background-opacity = 0.8
+window-decoration = false
+# window-padding-x = 10
+window-padding-y = 3
+
+# Terminal settings
+term = xterm-256color
+# mouse-support = true
+
 # Fontes
 font-family = "CaskaydiaMono Nerd Font Mono"
 font-size = 13

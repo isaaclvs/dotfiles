@@ -37,7 +37,8 @@ setup_dual_monitor() {
     done
     
     # Atualizar e recarregar Waybar no monitor externo
-    update_waybar_config "HDMI-A-1"
+    # update_waybar_config "HDMI-A-1"
+    update_waybar_config "eDP-1"
     pkill waybar 2>/dev/null
     sleep 1
     waybar &

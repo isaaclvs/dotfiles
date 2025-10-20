@@ -1,39 +1,39 @@
 return {
   -- -- Tokyonight
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000,
-    opts = {
-      style = "night", -- Define a variante night
-      transparent = true, -- mude para true se quiser fundo transparente
-      terminal_colors = true,
-      styles = {
-        comments = { italic = true },
-        keywords = { italic = true },
-        functions = {},
-        variables = {},
-      },
-    },
-  },
-
-  -- Night Owl theme (versão mais moderna)
-  {
-    "oxfist/night-owl.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("night-owl").setup()
-    end,
-  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   priority = 1000,
+  --   opts = {
+  --     style = "night", -- Define a variante night
+  --     transparent = true, -- mude para true se quiser fundo transparente
+  --     terminal_colors = true,
+  --     styles = {
+  --       comments = { italic = true },
+  --       keywords = { italic = true },
+  --       functions = {},
+  --       variables = {},
+  --     },
+  --   },
+  -- },
+  --
+  -- -- Night Owl theme (versão mais moderna)
+  -- {
+  --   "oxfist/night-owl.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("night-owl").setup()
+  --   end,
+  -- },
 
   -- Onedark
-  {
-    "navarasu/onedark.nvim",
-    priority = 1000,
-    opts = {
-      style = "dark", -- Variantes: dark, darker, cool, deep, warm, warmer
-    },
-  },
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   priority = 1000,
+  --   opts = {
+  --     style = "dark", -- Variantes: dark, darker, cool, deep, warm, warmer
+  --   },
+  -- },
 
   -- Kanagawa
   {
@@ -90,7 +90,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "night-owl",
+      colorscheme = "nightfox",
     },
   },
 }

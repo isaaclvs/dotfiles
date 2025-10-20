@@ -3,3 +3,5 @@
 	name = Isaac
 [core]
 	editor = nvim
+[url "https://github.com/"]
+	insteadOf = git@github.com:

@@ -17,13 +17,17 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Work
+alias vpnup='sudo wg-quick up wg0'
+alias vpndown='sudo wg-quick down wg0'
+
 # User configuration
-alias work="~/.scripts/start-work.sh"
-alias deploy-prd="~/.scripts/deploy-producao.sh"
-alias deploy-hml="~/.scripts/deploy-homologacao.sh"
+alias dot='cd ~/.dotfiles'
+
+alias reload-hypr='hyprctl reload && notify-send "Hyprland Reloaded"'
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
-alias edit-hypr="nvim ~/.config/hypr/"
+alias edit-hypr="nvim ~/.dotfiles/hypr/.config/hypr/"
 alias c="clear"
 alias q="exit"
 alias lg="lazygit"
@@ -39,13 +43,6 @@ alias grep="grep --color=auto"
 alias update="sudo pacman -Syyuu"
 alias install="sudo pacman -S"
 alias remove="sudo pacman -Rns"
-
-# # Gerenciamento de Pacotes (Ubuntu)
-# alias update="sudo apt update && sudo apt upgrade -y"
-# alias install="sudo apt install"
-# alias remove="sudo apt remove --purge"
-# alias autoremove="sudo apt autoremove --purge -y && sudo apt autoclean"
-# alias fullupdate="sudo apt update && sudo apt full-upgrade -y"
 
 # Ruby
 alias rs="rails server"
@@ -121,4 +118,22 @@ pj() {
     tmux attach-session -t "$project_name"
   fi
 }
+
+# study stream aliases
+declare -A pomo_options
+pomo_options["work"]="60"
+pomo_options["break"]="10"
+
+pomodoro () {
+  if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
+  val=$1
+  echo $val | lolcat
+  timer ${pomo_options["$val"]}m
+  # spd-say "'$val' session done"
+  notify-send "Pomodoro" "'$val' session completed!" -i alarm
+  fi
+}
+
+alias wo="pomodoro 'work'"
+alias br="pomodoro 'break'"
 
